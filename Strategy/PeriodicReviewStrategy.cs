@@ -4,13 +4,13 @@ namespace WarehouseIventory.Strategy;
 
 public class PeriodicReviewStrategy : IReplenishmentStrategy
 {
-    private readonly DatOfWeek _reviewDay;
+    private readonly DayOfWeek _reviewDay;
     public PeriodicReviewStrategy(DayOfWeek reviewDay = DayOfWeek.Monday)
     {
         _reviewDay = reviewDay;
     }
     public string StrategyName => $"Periodic Review (Đánh giá định kỳ vào {TranslateDayOfWeek(_reviewDay)})";
-    public bool RequiresReorder(StockIltem item,DateTime currentDate)
+    public bool RequiresReorder(StockItem item,DateTime currentDate)
     {
         ArgumentNullException.ThrowIfNull(item, nameof(item));
         if(currentDate.DayOfWeek != _reviewDay) return false;
