@@ -1,4 +1,4 @@
-using WarehouseInventory.entities;
+using WarehouseInventory.Domain.entities;
 namespace WarehouseInventory.Strategy;
 
 public class FixedReorderPointStrategy : IReplenishmentStrategy
