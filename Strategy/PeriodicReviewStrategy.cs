@@ -1,5 +1,5 @@
 using System.Dynamic;
-using WarehouseIventory.Domain.entities;
+using WarehouseIventory.entities;
 namespace WarehouseIventory.Strategy;
 
 public class PeriodicReviewStrategy : IReplenishmentStrategy
