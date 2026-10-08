@@ -46,10 +46,10 @@ namespace Warehouse.Domain.Entities
         }
         public void UpdateReorderPolicy(int newReorderPoint,int newTargetStockLevel){
             if(newReorderPoint < 0){
-                throw new ArgumentException("Ngưỡng đặt hàng không được âm.");
+                throw new InvalidOperationException("Ngưỡng đặt hàng không được âm.");
             }
             if (newTargetStockLevel < newReorderPoint)
-                throw new ArgumentException("Mức tồn mục tiêu phải lớn hơn hoặc bằng Ngưỡng đặt hàng.");
+                throw new InvalidOperationException("Mức tồn mục tiêu phải lớn hơn hoặc bằng Ngưỡng đặt hàng.");
             ReorderPoint = newReorderPoint;
             TargetStockLevel = newTargetStockLevel;
         }
