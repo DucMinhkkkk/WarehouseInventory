@@ -12,7 +12,7 @@ public class LowStockReportItem
     public string StrategyUsed { get; set; } = string.Empty;
 }
 
-public class LowStockReportItem
+public class LowStockReportGenerator
 {
     public List<LowStockReportItem> GenerateReport(IEnumerable<StockItem> items
     , IReplenishmentStrategy strategy,DateTime currentDate)
