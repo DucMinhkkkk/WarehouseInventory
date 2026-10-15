@@ -1,0 +1,36 @@
+Thành viên 1: Phạm Văn Tuấn Đạt
+Thành viên 2: Nguyễn Đạo Đức Minh
+
+WarehouseManagement/
+├── WarehouseManagement.sln
+├── src/
+│   ├── Warehouse.Domain/             [Thành viên 1]
+│   │   ├── Entities/
+│   │   │   ├── Product.cs
+│   │   │   ├── Location.cs
+│   │   │   ├── StockItem.cs          (Encapsulation guard)
+│   │   │   ├── Shipment.cs---ShipmentType(inbound,outbound)
+│   │   │   └── AuditEntry.cs
+│   │   ├── Exceptions/
+│   │   │   ├── InsufficientStockException.cs
+│   │   │   └── InvalidStockOperationException.cs
+│   │   └── Strategies/               [Thành viên 2]
+│   │       ├── IReplenishmentStrategy.cs
+│   │       ├── FixedReorderPointStrategy.cs
+│   │       └── PeriodicReviewStrategy.cs
+│   │
+│   ├── Warehouse.Infrastructure/     [Thành viên 1 & 2]
+│   │   ├── Services/
+│   │   │   ├── TransferService.cs    (Atomic stock transfer)
+│   │   │   └── AuditLogger.cs        (Audit trail)
+│   │   └── Reporting/                [Thành viên 2]
+│   │       └── LowStockReportGenerator.cs (SRP)
+│   │
+│   └── Warehouse.ConsoleApp/         [Cả hai]
+│       └── Program.cs                (Demo Happy Path + Test Scenarios)
+│
+└── tests/
+    └── Warehouse.Tests/              [Thành viên 2]
+        ├── StockItemTests.cs
+        ├── TransferServiceTests.cs
+        └── ReplenishmentStrategyTests.cs
