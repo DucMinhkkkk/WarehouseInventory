@@ -1,8 +1,11 @@
-namespace WarehouseInventory.Strategy;
-
-public interface IReplenishmentStrategy
+namespace Warehouse.Domain.Strategy
 {
-    string StrategyName{get;}
-    bool RequiresReorder(StockItem item,DateTime currentDate);
-    int CalculateReorderQuantity(StockItem item);
+    public interface IReplenishmentStrategy
+    {
+        string StrategyName{get;}
+        bool RequiresReorder(StockItem item,DateTime currentDate);
+        int CalculateReorderQuantity(StockItem item);
+    }
 }
+
+

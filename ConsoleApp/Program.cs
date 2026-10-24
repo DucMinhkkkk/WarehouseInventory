@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using WarehouseInventory.Domain.entities;
-using WarehouseInventory.Domain.Strategy;
-using WarehouseInventory.Infrastructure.Reporting;
-using WarehouseInventory.Infrastructure.Services;
+using Warehouse.Domain.Entities;
+using Warehouse.Domain.Strategy;
+using Warehouse.Infrastructure.Reporting;
+using Warehouse.Infrastructure.Services;
 
 namespace WarehouseInventory.ConsoleApp;
 
@@ -47,7 +47,7 @@ class Program
 
         try
         {
-            transferService.TransferService(khoMain, khoSub, quantity: 20, operatorName: "NV_NguyenVanA");
+            transferService.TransferStock(khoMain, khoSub, quantity: 20, operatorName: "NV_NguyenVanA");
 
         }
         catch (Exception ex)
@@ -108,14 +108,6 @@ class Program
         Console.ResetColor();
     }
 
-    private static void PrintSection(string sectionTitle)
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"\n----------------------------------------------------------------------------------");
-        Console.WriteLine($" {sectionTitle}");
-        Console.WriteLine($"----------------------------------------------------------------------------------");
-        Console.ResetColor();
-    }
     private static void PrintSection(string sectionTitle)
     {
         Console.ForegroundColor = ConsoleColor.Yellow;

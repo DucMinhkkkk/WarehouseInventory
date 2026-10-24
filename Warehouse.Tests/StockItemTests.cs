@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using Warehouse.Domain.Entities;
+using Warehouse.Entities;
 
 namespace Warehouse.Tests
 {
