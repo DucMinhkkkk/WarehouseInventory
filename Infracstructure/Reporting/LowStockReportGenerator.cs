@@ -40,4 +40,3 @@ namespace WarehouseInventory.Infrastructure.Reporting
     }
 
 }
-

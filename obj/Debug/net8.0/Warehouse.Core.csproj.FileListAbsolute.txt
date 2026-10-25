@@ -1,0 +1,5 @@
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.AssemblyInfoInputs.cache
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.AssemblyInfo.cs
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.csproj.CoreCompileInputs.cache
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.sourcelink.json

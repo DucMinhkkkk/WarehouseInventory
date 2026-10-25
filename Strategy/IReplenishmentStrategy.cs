@@ -1,3 +1,5 @@
+using System;
+using Warehouse.Domain.Entities;
 namespace Warehouse.Domain.Strategy
 {
     public interface IReplenishmentStrategy
