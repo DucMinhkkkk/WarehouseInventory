@@ -1,5 +1,12 @@
+C:\C#\WarehouseInventory\bin\Debug\net8.0\Warehouse.Core.deps.json
+C:\C#\WarehouseInventory\bin\Debug\net8.0\Warehouse.Core.dll
+C:\C#\WarehouseInventory\bin\Debug\net8.0\Warehouse.Core.pdb
 C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.GeneratedMSBuildEditorConfig.editorconfig
 C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.AssemblyInfoInputs.cache
 C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.AssemblyInfo.cs
 C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.csproj.CoreCompileInputs.cache
 C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.sourcelink.json
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.dll
+C:\C#\WarehouseInventory\obj\Debug\net8.0\refint\Warehouse.Core.dll
+C:\C#\WarehouseInventory\obj\Debug\net8.0\Warehouse.Core.pdb
+C:\C#\WarehouseInventory\obj\Debug\net8.0\ref\Warehouse.Core.dll

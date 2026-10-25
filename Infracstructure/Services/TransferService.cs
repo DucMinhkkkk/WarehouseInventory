@@ -13,19 +13,25 @@ namespace Warehouse.Infrastructure.Services
             _auditLogger = auditLogger;
         }
 
-        public void TransferStock(StockItem source, StockItem destination, int quantity, string userId)
+        public void TransferStock(StockItem? source,
+            StockItem? destination,
+            int quantity,
+            string userId)
         {
             if (source == null || destination == null)
             {
                 throw new InvalidStockOperationException("Source and destination cannot be null.");
             }
+                if (quantity <= 0)
+                    throw new InvalidStockOperationException(
+                            "Transfer quantity must be greater than zero.");
 
-            if (source.Sku != destination.Sku)
+            if (source.Product.SKU != destination.Product.SKU)
             {
                 throw new InvalidStockOperationException("Cannot transfer stock between different SKUs.");
             }
 
-            source.TransferStock(quantity);
+            source.RemoveStock(quantity);
 
             try
             {
@@ -37,7 +43,7 @@ namespace Warehouse.Infrastructure.Services
                 throw new InvalidStockOperationException("Transfer failed during destination update. Rolled back successfully.", ex);
             }
 
-            _auditLogger.LogTransaction(source.Sku, "TRANSFER", quantity, userId);
+            _auditLogger.LogTransaction(source.Product.SKU, "TRANSFER", quantity, userId, source.Location.LocationId);
         }
     }
 }

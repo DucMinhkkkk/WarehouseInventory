@@ -1,7 +1,9 @@
-using WarehouseInventory.Domain.entities;
-using WarehouseInventory.Domain.Strategy;
+using System;
+using System.Collections.Generic;
+using Warehouse.Domain.Entities;
+using Warehouse.Domain.Strategy;
 
-namespace WarehouseInventory.Infrastructure.Reporting
+namespace Warehouse.Infrastructure.Reporting
 {
     public class LowStockReportItem
     {
@@ -27,8 +29,8 @@ namespace WarehouseInventory.Infrastructure.Reporting
                 {
                     report.Add(new LowStockReportItem
                     {
-                        Sku = item.Sku,
-                        LocationId = item.LocationId,
+                        Sku = item.Product.SKU,
+                        LocationId = item.Location.LocationId,
                         CurrentQuantity = item.Quantity,
                         RecommendedReorderQuantity = strategy.CalculateReorderQuantity(item),
                         StrategyUsed = strategy.StrategyName

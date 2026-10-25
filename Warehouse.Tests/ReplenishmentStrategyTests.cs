@@ -7,6 +7,26 @@ namespace Warehouse.Tests
 {
     public class ReplenishmentStrategyTests
     {
+        private readonly Product _product =
+            new Product("SKU-01", "Test Product", "");
+
+        private readonly Location _location =
+            new Location("KHO-A", "Kho A");
+
+        private StockItem CreateItem(
+            int quantity,
+            int reorderPoint = 10,
+            int targetStockLevel = 25)
+        {
+            return new StockItem(
+                "STOCK-01",
+                _product,
+                _location,
+                initialQuantity: quantity,
+                reorderPoint: reorderPoint,
+                targetStockLevel: targetStockLevel);
+        }
+
         #region FixedReorderPointStrategy Tests
 
         [Theory]
@@ -15,10 +35,9 @@ namespace Warehouse.Tests
         [InlineData(11, 10, false)]
         public void FixedReorderPoint_RequiresReorder_EvaluatesQuantityAgainstReorderPoint(int quantity, int reorderPoint, bool expectedResult)
         {
-            var item = new StockItem("SKU-01", "KHO-A", initialQuantity: quantity, reorderPoint: reorderPoint, targetStockLevel: 25);
+            var item = CreateItem(quantity, reorderPoint: reorderPoint);
+
             var strategy = new FixedReorderPointStrategy();
-
-
             bool result = strategy.RequiresReorder(item, DateTime.Now);
 
 
@@ -28,7 +47,7 @@ namespace Warehouse.Tests
         [Fact]
         public void FixedReorderPoint_CalculateReorderQuantity_ReturnsDifferenceTargetMinusCurrent()
         {
-            var item = new StockItem("SKU-01", "KHO-A", initialQuantity: 6, reorderPoint: 10, targetStockLevel: 25);
+            var item = CreateItem(quantity: 6);
             var strategy = new FixedReorderPointStrategy();
 
 
@@ -66,7 +85,7 @@ namespace Warehouse.Tests
         public void PeriodicReview_OnReviewDayAndQuantityBelowTarget_ReturnsTrue()
         {
 
-            var item = new StockItem("SKU-01", "KHO-A", initialQuantity: 8, reorderPoint: 10, targetStockLevel: 25);
+            var item = CreateItem(quantity: 8);
             var strategy = new PeriodicReviewStrategy(DayOfWeek.Monday);
             var mondayDate = new DateTime(2026, 10, 12); // Thứ Hai
 
@@ -81,7 +100,7 @@ namespace Warehouse.Tests
         public void PeriodicReview_NotOnReviewDay_ReturnsFalse()
         {
     
-            var item = new StockItem("SKU-01", "KHO-A", initialQuantity: 2, reorderPoint: 10, targetStockLevel: 25);
+            var item = CreateItem(quantity: 2);
             var strategy = new PeriodicReviewStrategy(DayOfWeek.Monday);
             var tuesdayDate = new DateTime(2026, 10, 13); // Thứ Ba
 
@@ -96,7 +115,7 @@ namespace Warehouse.Tests
         public void PeriodicReview_OnReviewDayButQuantityAtOrAboveTarget_ReturnsFalse()
         {
 
-            var item = new StockItem("SKU-01", "KHO-A", initialQuantity: 25, reorderPoint: 10, targetStockLevel: 25);
+            var item = CreateItem(quantity: 25);
             var strategy = new PeriodicReviewStrategy(DayOfWeek.Monday);
             var mondayDate = new DateTime(2026, 10, 12);
 
@@ -111,7 +130,7 @@ namespace Warehouse.Tests
         public void PeriodicReview_CalculateReorderQuantity_ReturnsDifferenceTargetMinusCurrent()
         {
 
-            var item = new StockItem("SKU-01", "KHO-A", initialQuantity: 10, reorderPoint: 10, targetStockLevel: 25);
+            var item =CreateItem(quantity: 10);
             var strategy = new PeriodicReviewStrategy(DayOfWeek.Monday);
 
 

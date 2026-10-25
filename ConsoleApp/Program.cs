@@ -18,20 +18,37 @@ class Program
 
         var auditLogger = new AuditLogger();
         var transferService = new TransferService(auditLogger);
-        var reportGenerator = new LowStockReprotGenerator();
+        var reportGenerator = new LowStockReportGenerator();
 
         //Kịch Bản 1: Happy path (Luân chuyển kho nguyên tử & Ghi Audit Log)
         PrintSection("1. KỊCH BẢN HAPPY PATH: LUÂN CHUYỂN KHO NGUYỂN TỬ & AUDIT TRAIL");
+        var product = new Product("DELL-XPS-15", "Dell XPS 15");
 
-        var khoMain = new StockItem("DELL-XPS-15", "KHO-MAIN", initialQuantity: 15,reorderPoint: 10, targetStockLevel: 25);
-        var khoSub = new StockItem("DELL-XPS-15", "KHO-SUB", initialQuantity: 5, reorderPoint: 10, targetStockLevel: 25);
+        var mainLocation = new Location("KHO-MAIN", "Kho chính");
+        var subLocation = new Location("KHO-SUB", "Kho phụ");
+
+        var khoMain = new StockItem(
+            "STOCK-MAIN",
+            product,
+            mainLocation,
+            initialQuantity: 15,
+            reorderPoint: 10,
+            targetStockLevel: 25);
+
+        var khoSub = new StockItem(
+            "STOCK-SUB",
+            product,
+            subLocation,
+            initialQuantity: 5,
+            reorderPoint: 10,
+            targetStockLevel: 25);
 
         Console.WriteLine("[Trạng thái ban đầu]");
         Console.WriteLine($"  • Kho Chính (KHO-MAIN): {khoMain.Quantity} máy");
         Console.WriteLine($"  • Kho Phụ   (KHO-SUB) : {khoSub.Quantity} máy");
 
         Console.WriteLine("\n[Thao tác]: Chuyển 5 máy DELL-XPS-15 từ KHO-MAIN sang KHO-SUB bởi 'NV_NguyenVanA'...");
-        transferService.TransferStock(khoMain, khoSub, quantity: 5, operatorName: "NV_NguyenVanA");
+        transferService.TransferStock(khoMain, khoSub, quantity: 5, userId: "NV_NguyenVanA");
 
         Console.WriteLine("\n[Trạng thái sau khi chuyển]");
         Console.WriteLine($"  • Kho Chính (KHO-MAIN): {khoMain.Quantity} máy (Đã giảm 5)");
@@ -47,7 +64,7 @@ class Program
 
         try
         {
-            transferService.TransferStock(khoMain, khoSub, quantity: 20, operatorName: "NV_NguyenVanA");
+            transferService.TransferStock(khoMain, khoSub, quantity: 20, userId: "NV_NguyenVanA");
 
         }
         catch (Exception ex)
@@ -65,13 +82,20 @@ class Program
         PrintSection("3. KỊCH BẢN ĐA HÌNH (POLYMORPHISM): SO SÁNH 2 STRATEGY TÁI ĐẶT HÀNG");
 
         // Giả lập sản phẩm chạm vạch nguy cơ: Tồn kho = 8 (thấp hơn ReorderPoint = 10)
-        var itemNeedReorder = new StockItem("DELL-XPS-15", "KHO-MAIN", initialQuantity: 8, reorderPoint: 10, targetStockLevel: 25);
+        var itemNeedReorder = new StockItem( "STOCK-MAIN",
+            product,
+            mainLocation,
+            initialQuantity: 8,
+            reorderPoint: 10,
+            targetStockLevel: 25);
         var stockList = new List<StockItem> { itemNeedReorder };
 
         // Giả lập thời điểm đánh giá là THỨ BA (Tuesday)
         var evaluatedDate = new DateTime(2026, 10, 6); // 06/10/2026 là Thứ Ba
 
-        Console.WriteLine($"Sản phẩm kiểm tra : SKU '{itemNeedReorder.Sku}' tại '{itemNeedReorder.LocationId}'");
+        Console.WriteLine(
+            $"Sản phẩm kiểm tra : SKU '{itemNeedReorder.Product.SKU}' " +
+            $"tại '{itemNeedReorder.Location.LocationId}'");
         Console.WriteLine($"Thông số Tồn kho   : Tồn thực tế = {itemNeedReorder.Quantity} | Ngưỡng đặt (ROP) = {itemNeedReorder.ReorderPoint} | Mức tối đa (Target) = {itemNeedReorder.TargetStockLevel}");
         Console.WriteLine($"Ngày đánh giá     : {evaluatedDate:dd/MM/yyyy} ({evaluatedDate.DayOfWeek})\n");
         

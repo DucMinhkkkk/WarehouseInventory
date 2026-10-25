@@ -13,9 +13,9 @@ namespace Warehouse.Infrastructure.Services
             _auditTrail = new List<AuditEntry>();
         }
 
-        public void LogTransaction(string sku, string actionType, int quantity, string userId)
+        public void LogTransaction(string sku, string actionType, int quantity, string userId, string locationId = "")
         {
-            var entry = new AuditEntry(sku, actionType, quantity, userId, DateTime.UtcNow);
+            var entry = new AuditEntry(sku, actionType, quantity, userId, DateTime.UtcNow,locationId);
             _auditTrail.Add(entry);
             
             Console.WriteLine($"[AUDIT LOG] {entry.Timestamp:yyyy-MM-dd HH:mm:ss} | {entry.UserId} performed {entry.ActionType} of {entry.Quantity} units on SKU: {entry.Sku}");
@@ -24,6 +24,10 @@ namespace Warehouse.Infrastructure.Services
         public IReadOnlyList<AuditEntry> GetHistory()
         {
             return _auditTrail.AsReadOnly();
+        }
+        public IReadOnlyList<AuditEntry> GetLogs()
+        {
+            return GetHistory();
         }
     }
 }

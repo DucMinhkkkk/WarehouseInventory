@@ -1,13 +1,16 @@
 using System;
 using Xunit;
-using Warehouse.Entities;
+using Warehouse.Domain.Entities;
 
 namespace Warehouse.Tests
 {
     public class StockItemTests
     {
-        private readonly Product _dummyProduct = new Product { SKU = "SKU-123" }; 
-        private readonly Location _dummyLocation = new Location { Name = "A1" };
+        private readonly Product _dummyProduct =
+            new Product("SKU-123", "Test Product");
+
+        private readonly Location _dummyLocation =
+            new Location("A1", "Test Location");
 
         [Fact]
         public void Constructor_ValidInitialQuantity_SetsPropertiesCorrectly()

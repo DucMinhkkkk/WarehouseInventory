@@ -16,6 +16,11 @@ namespace Warehouse.Domain.Exceptions
             RequestedQuantity = requested;
         }
 
-        public InsufficientStockException(string message) : base(message) { }
+        public InsufficientStockException(string message) : base(message)
+        {
+            Sku = string.Empty;
+            AvailableQuantity = 0;
+            RequestedQuantity = 0;
+        }
     }
 }

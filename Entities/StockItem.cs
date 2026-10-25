@@ -13,16 +13,18 @@ namespace Warehouse.Domain.Entities
         // Encapsulation: Trạng thái (số lượng) được bảo vệ, không cho phép set tuỳ ý từ bên ngoài
         public int Quantity { get; private set; }
 
-        public StockItem(string stockItemId, Product product, Location location, int initialQuantity = 0)
+        public StockItem(string stockItemId, Product product, Location location, int initialQuantity = 0,int reorderPoint = 0,
+        int targetStockLevel = 0)
         {
             if (initialQuantity < 0)
                 throw new InvalidOperationException("Số lượng tồn kho ban đầu không thể âm.");
-            UpdateReorderPolicy(reorderPoint, targetStockLevel);
+            
 
             StockItemId = stockItemId;
             Product = product;
             Location = location;
             Quantity = initialQuantity;
+            UpdateReorderPolicy(reorderPoint, targetStockLevel);
         }
 
         public void AddStock(int amount)
