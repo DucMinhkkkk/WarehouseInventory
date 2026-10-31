@@ -119,6 +119,45 @@ class Program
         Console.WriteLine("     + FixedReorderPointStrategy : KÍCH HOẠT NHẬP HÀNG (vì 8 <= 10).");
         Console.WriteLine("     + PeriodicReviewStrategy    : BỎ QUA (vì Thứ Ba không phải Thứ Hai theo lịch).");
 
+
+        
+        // Kịch bản 4: EXTENSIBILITY DEMO
+        // Thêm một strategy mới mà không sửa các strategy hiện có.
+        PrintSection(
+            "4. EXTENSIBILITY DEMO: THÊM STRATEGY MỚI");
+
+        var criticalItem = new StockItem(
+            "STOCK-CRITICAL",
+            product,
+            subLocation,
+            initialQuantity: 4,
+            reorderPoint: 10,
+            targetStockLevel: 25);
+
+        // Tái sử dụng itemNeedReorder đã tạo ở kịch bản 3 (tồn kho = 8).
+        var extensibilityItems = new List<StockItem>
+        {
+            itemNeedReorder,
+            criticalItem
+        };
+
+        IReplenishmentStrategy criticalStrategy =
+            new CriticalStockStrategy();
+
+        Console.WriteLine(
+            $"Chiến lược mới: {criticalStrategy.StrategyName}");
+
+        Console.WriteLine(
+            "Quy tắc: chỉ đề xuất nhập hàng khi tồn kho <= 50% ROP.");
+
+        var criticalReport = reportGenerator.GenerateReport(
+            extensibilityItems,
+            criticalStrategy,
+            evaluatedDate);
+
+        PrintReportResults(criticalReport);
+
+
         PrintHeader("HOÀN THÀNH KỊCH BẢN DEMO Console - ĐỦ ĐIỀU KIỆN ĐÁNH GIÁ ĐỒ ÁN");
 
     }
